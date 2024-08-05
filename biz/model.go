@@ -157,73 +157,8 @@ type CreateMessageRequest struct {
 }
 
 type CreateMessageResponse struct {
-	Code    int          `json:"code"`
-	Message string       `json:"message"`
-	Data    *MessageItem `json:"data"`
-}
-
-type MessageItem struct {
-	MessageID  string         `json:"message_id,omitempty"`
-	RootID     string         `json:"root_id,omitempty"`
-	ParentID   string         `json:"parent_id,omitempty"`
-	MsgType    string         `json:"msg_type,omitempty"`
-	CreateTime string         `json:"create_time,omitempty"`
-	UpdateTime string         `json:"update_time,omitempty"`
-	Deleted    bool           `json:"deleted,omitempty"`
-	ChatID     string         `json:"chat_id,omitempty"`
-	Sender     *MessageSender `json:"sender,omitempty"`
-	Body       *MessageBody   `json:"body,omitempty"`
-}
-
-type MessageBody struct {
-	Content string `json:"content,omitempty"`
-}
-
-type MessageSender struct {
-	ID         string `json:"id,omitempty"`
-	IDType     string `json:"id_type,omitempty"`
-	SenderType string `json:"sender_type"`
-	TenantKey  string `json:"tenant_key"`
-}
-
-type ReceiveEventEncrypt struct {
-	Encrypt string `json:"encrypt" form:"encrypt"`
-}
-
-type DecryptToken struct {
-	Challenge string `json:"challenge"`
-	Token     string `json:"token"`
-	Type      string `json:"type"`
-}
-
-type Event struct {
-	Schema string      `json:"schema"`
-	Header Header      `json:"header"`
-	Event  interface{} `json:"event"`
-}
-
-type ReceiveMessageEvent struct {
-	Schema string       `json:"schema"`
-	Header Header       `json:"header"`
-	Event  MessageEvent `json:"event"`
-}
-
-type MessageEvent struct {
-	Sender  Sender  `json:"sender"`
-	Message Message `json:"message"`
-}
-
-type Sender struct {
-	SenderID   map[string]string `json:"sender_id"`
-	SenderType string            `json:"sender_type"`
-	TenantKey  string            `json:"tenant_key"`
-}
-
-type Message struct {
-	MessageID   string     `json:"message_id"`
-	RootID      string     `json:"root_id"`
-	ParentID    string     `json:"parent_id"`
-	CreateTime  string     `json:"create_time"`
+	Code        int        `json:"code"`
+	Message     string     `json:"message"`
 	ChatID      string     `json:"chat_id"`
 	ChatType    string     `json:"chat_type"`
 	MessageType string     `json:"message_type"`
@@ -253,8 +188,8 @@ type UserID struct {
 }
 
 type GetMessageHistoryResponse struct {
-	Code    int          `json:"code"`
-	Message string       `json:"message"`
+	Code    int                    `json:"code"`
+	Message string                 `json:"message"`
 	Data    *GetMessageHistoryBody `json:"data"`
 }
 
@@ -265,18 +200,18 @@ type GetMessageHistoryBody struct {
 }
 
 type GetMessageHistoryMessageItem struct {
-	MessageID      string         `json:"message_id,omitempty"`
-	RootID         string         `json:"root_id,omitempty"`
-	ParentID       string         `json:"parent_id,omitempty"`
-	MsgType        string         `json:"msg_type,omitempty"`
-	CreateTime     string         `json:"create_time,omitempty"`
-	UpdateTime     string         `json:"update_time,omitempty"`
-	Deleted        bool           `json:"deleted,omitempty"`
-	ChatID         string         `json:"chat_id,omitempty"`
-	Sender         *MessageSender `json:"sender,omitempty"`
-	Body           *MessageBody   `json:"body,omitempty"`
-	Mentions       []*MentionV1   `json:"mentions,omitempty"`
-	UpperMessageID string         `json:"upper_message_id,omitempty"`
+	MessageID  string `json:"message_id,omitempty"`
+	RootID     string `json:"root_id,omitempty"`
+	ParentID   string `json:"parent_id,omitempty"`
+	MsgType    string `json:"msg_type,omitempty"`
+	CreateTime string `json:"create_time,omitempty"`
+	UpdateTime string `json:"update_time,omitempty"`
+	Deleted    bool   `json:"deleted,omitempty"`
+	ChatID     string `json:"chat_id,omitempty"`
+	// Sender         *MessageSender `json:"sender,omitempty"`
+	// Body           *MessageBody   `json:"body,omitempty"`
+	Mentions       []*MentionV1 `json:"mentions,omitempty"`
+	UpperMessageID string       `json:"upper_message_id,omitempty"`
 }
 
 type UploadImageResponse struct {
@@ -381,4 +316,14 @@ type CardURL struct {
 
 type CardSplitLine struct {
 	Tag string `json:"tag"`
+}
+
+// custom biz Event
+type ChallengeMessageEvent struct {
+	Challenge string `json:"challenge"`
+	Type      string `json:"type"`
+	Token     string `json:"token"`
+}
+
+type ReceiveMessageEvent struct {
 }

@@ -2,14 +2,12 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"net/http"
 	"strings"
 	"time"
 
 	"bugmeow/biz"
-	"fmt"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 
@@ -128,104 +126,117 @@ func main() {
 
 	// 在已有 Gin 实例上注册消息处理路由
 	r.POST("/", func(c *gin.Context) {
-		var tmp biz.ReceiveMessageEvent
+		// var tmp biz.ReceiveMessageEvent
+
+		// if err := c.ShouldBindJSON(&tmp); err != nil {
+		// 	c.JSON(400, gin.H{"code": -1})
+		// 	return
+		// }
+
+		// raw := tmp.Event.Message.Content
+		// var tmpMap map[string]string
+		// if err := json.Unmarshal([]byte(raw), &tmpMap); err != nil {
+		// 	c.JSON(400, gin.H{"code": -2})
+		// 	return
+		// }
+
+		// // Lark 获得的信息
+		// base := tmpMap["text"]
+		// head := ""
+		// startIndex := strings.Index(base, " ")
+		// if startIndex != -1 {
+		// 	head = base[:startIndex]
+		// 	base = strings.Trim(base[startIndex:], " ")
+		// }
+
+		// // sender 给所有人发的时候 mute
+		// if strings.Contains(head, "@_all") {
+		// 	c.JSON(http.StatusOK, gin.H{
+		// 		"code":  0,
+		// 		"error": "",
+		// 	})
+		// 	return
+		// }
+
+		// rawask := strings.Split(base, "@")
+		// sender := tmp.Event.Sender.SenderID
+		// place := tmp.Event.Message.ChatID
+		// rawText := ""
+		// rawProcessor := "" // 经办人 Id
+		// if len(tmp.Event.Message.Mentions) > 1 {
+		// 	rawProcessor = tmp.Event.Message.Mentions[1].ID.OpenID
+		// }
+
+		// fmt.Println(rawask)
+		// // 处理的结果
+		// resp := ""
+
+		// // 创建client
+		// client := lark.NewClient("cli_a327a22b1eb8500d", "aHcbZ75HvEj2dhfm7z4SUceeMIk5PotG")
+
+		// if len(rawask) < 3 && len(rawask) > 0 {
+		// 	resp = "OK，已经记录"
+		// 	rawText = rawask[0]
+		// } else {
+		// 	resp = "bug 提交请按照 @xxx 问题 或 @xxx 问题 @经办人 的格式，其他格式暂不支持"
+		// }
+
+		// fmt.Println("rawText", rawText)
+
+		// // 指令处理
+		// if rawText != "" {
+		// 	if rawText == "help" {
+		// 		// 帮助
+		// 		resp = "docs: 展示文档；xxx 问题 或 @xxx 问题 @经办人 添加记录"
+		// 	} else if rawText == "docs" {
+		// 		// 文档
+		// 		resp = "https://zdjb5i2gev.feishu.cn/base/bascnAH9f5XWLhVt7HG432D1eLj?table=tbl9QXXSKVkbUHCU&view=vewhQYpSaw"
+		// 	} else {
+		// 		// 添加
+		// 		if err := addRecord(client, rawText, sender["open_id"], rawProcessor); err != nil {
+		// 			c.JSON(http.StatusOK, gin.H{
+		// 				"code":  "-3",
+		// 				"error": err,
+		// 			})
+		// 			return
+		// 		}
+		// 	}
+		// }
+
+		// response := map[string]string{
+		// 	"text": "<at user_id=\"" + sender["open_id"] + "\">Tom</at> " + resp,
+		// }
+
+		// res_text, _ := json.Marshal(response)
+
+		// if err := send(client, string(res_text), place); err != nil {
+		// 	c.JSON(http.StatusOK, gin.H{
+		// 		"code":  "-2",
+		// 		"error": err,
+		// 	})
+		// 	return
+		// }
+
+		// c.JSON(http.StatusOK, gin.H{
+		// 	"message": "Hello world",
+		// })
+	})
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello world",
+		})
+	})
+	r.POST("/challenge", func(c *gin.Context) {
+		var tmp biz.ChallengeMessageEvent
 
 		if err := c.ShouldBindJSON(&tmp); err != nil {
 			c.JSON(400, gin.H{"code": -1})
 			return
 		}
-
-		raw := tmp.Event.Message.Content
-		var tmpMap map[string]string
-		if err := json.Unmarshal([]byte(raw), &tmpMap); err != nil {
-			c.JSON(400, gin.H{"code": -2})
-			return
-		}
-
-		// Lark 获得的信息
-		base := tmpMap["text"]
-		head := ""
-		startIndex := strings.Index(base, " ")
-		if startIndex != -1 {
-			head = base[:startIndex]
-			base = strings.Trim(base[startIndex:], " ")
-		}
-
-		// sender 给所有人发的时候 mute
-		if strings.Contains(head, "@_all") {
-			c.JSON(http.StatusOK, gin.H{
-				"code":  0,
-				"error": "",
-			})
-			return
-		}
-
-		rawask := strings.Split(base, "@")
-		sender := tmp.Event.Sender.SenderID
-		place := tmp.Event.Message.ChatID
-		rawText := ""
-		rawProcessor := "" // 经办人 Id
-		if len(tmp.Event.Message.Mentions) > 1 {
-			rawProcessor = tmp.Event.Message.Mentions[1].ID.OpenID
-		}
-
-		fmt.Println(rawask)
-		// 处理的结果
-		resp := ""
-
-		// 创建client
-		client := lark.NewClient("cli_a327a22b1eb8500d", "aHcbZ75HvEj2dhfm7z4SUceeMIk5PotG")
-
-		if len(rawask) < 3 && len(rawask) > 0 {
-			resp = "OK，已经记录"
-			rawText = rawask[0]
-		} else {
-			resp = "bug 提交请按照 @xxx 问题 或 @xxx 问题 @经办人 的格式，其他格式暂不支持"
-		}
-
-		fmt.Println("rawText", rawText)
-
-		// 指令处理
-		if rawText != "" {
-			if rawText == "help" {
-				// 帮助
-				resp = "docs: 展示文档；xxx 问题 或 @xxx 问题 @经办人 添加记录"
-			} else if rawText == "docs" {
-				// 文档
-				resp = "https://zdjb5i2gev.feishu.cn/base/bascnAH9f5XWLhVt7HG432D1eLj?table=tbl9QXXSKVkbUHCU&view=vewhQYpSaw"
-			} else {
-				// 添加
-				if err := addRecord(client, rawText, sender["open_id"], rawProcessor); err != nil {
-					c.JSON(http.StatusOK, gin.H{
-						"code":  "-3",
-						"error": err,
-					})
-					return
-				}
-			}
-		}
-
-		response := map[string]string{
-			"text": "<at user_id=\"" + sender["open_id"] + "\">Tom</at> " + resp,
-		}
-
-		res_text, _ := json.Marshal(response)
-
-		if err := send(client, string(res_text), place); err != nil {
-			c.JSON(http.StatusOK, gin.H{
-				"code":  "-2",
-				"error": err,
-			})
-			return
-		}
-
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello world",
-		})
-	})
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello world",
+			"challenge": tmp.Challenge,
+			"token":     tmp.Token,
+			"type":      tmp.Type,
 		})
 	})
 

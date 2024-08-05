@@ -6,34 +6,9 @@
 
 [GIN-debug] POST   /                         --> main.main.func1 (6 handlers)
 [GIN-debug] GET    /ping                     --> main.main.func2 (6 handlers)
+[GIN-debug] POST   /challenge                --> main.main.func3 (6 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8000
-[【功能】测试  _user_2]
-rawText 【功能】测试 
-time="2023-02-06T16:46:41+08:00" level=info client_ip="123.58.10.239:46356" duration=1351.85 method=POST path=/ referrer= request_id= status=200 user_id=
-[GIN] 2023/02/06 - 16:46:41 | 200 |  1.351992886s |   123.58.10.239 | POST     "/"
-[清理带『迷圈』水印的剧本封面 _user_2]
-rawText 清理带『迷圈』水印的剧本封面
-time="2023-02-06T17:11:36+08:00" level=info client_ip="123.58.10.238:56270" duration=1156.55 method=POST path=/ referrer= request_id= status=200 user_id=
-[GIN] 2023/02/06 - 17:11:36 | 200 |   1.15664541s |   123.58.10.238 | POST     "/"
-[修改好友邀请文案，“+好友加我车”  _user_2]
-rawText 修改好友邀请文案，“+好友加我车” 
-time="2023-02-06T17:33:38+08:00" level=info client_ip="123.58.10.239:61780" duration=1213.14 method=POST path=/ referrer= request_id= status=200 user_id=
-[GIN] 2023/02/06 - 17:33:38 | 200 |  1.213215695s |   123.58.10.239 | POST     "/"
-[【优化】补车逻辑思考  _user_2]
-rawText 【优化】补车逻辑思考 
-time="2023-02-06T17:47:16+08:00" level=info client_ip="123.58.10.238:45252" duration=1440.4 method=POST path=/ referrer= request_id= status=200 user_id=
-[GIN] 2023/02/06 - 17:47:16 | 200 |  1.440463132s |   123.58.10.238 | POST     "/"
-[ _all]
-rawText 
-time="2023-02-06T18:24:47+08:00" level=info client_ip="123.58.10.238:45178" duration=617.14 method=POST path=/ referrer= request_id= status=200 user_id=
-[GIN] 2023/02/06 - 18:24:47 | 200 |    617.2171ms |   123.58.10.238 | POST     "/"
-time="2023-02-06T20:08:51+08:00" level=info client_ip="167.172.24.162:33248" duration=0.03 method=GET path=/ referrer= request_id= status=404 user_id=
-[GIN] 2023/02/06 - 20:08:51 | 404 |      99.738µs |  167.172.24.162 | GET      "/"
-time="2023-02-06T20:33:35+08:00" level=info client_ip="184.105.139.96:26819" duration=0.02 method=GET path=/ referrer= request_id= status=404 user_id=
-[GIN] 2023/02/06 - 20:33:35 | 404 |     121.967µs |  184.105.139.96 | GET      "/"
-time="2023-02-06T20:34:31+08:00" level=info client_ip="184.105.139.116:48957" duration=0.03 method=GET path="http://api.ipify.org/?format=json" referrer= request_id= status=404 user_id=
-[GIN] 2023/02/06 - 20:34:31 | 404 |      85.373µs | 184.105.139.116 | GET      "/?format=json"
-time="2023-02-06T20:34:54+08:00" level=info client_ip="184.105.139.68:46275" duration=0.02 method=CONNECT path="www.shadowserver.org:443" referrer= request_id= status=404 user_id=
-[GIN] 2023/02/06 - 20:34:54 | 404 |      95.599µs |  184.105.139.68 | CONNECT  ""
+time="2024-08-05T16:47:54+08:00" level=info client_ip="101.43.220.10:53478" duration=0.22 method=POST path=/challenge referrer= request_id= status=200 user_id=
+[GIN] 2024/08/05 - 16:47:54 | 200 |     356.109µs |   101.43.220.10 | POST     "/challenge"

@@ -226,6 +226,20 @@ func main() {
 			"message": "Hello world",
 		})
 	})
+	r.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+
+		if file != nil {
+			c.JSON(http.StatusOK, gin.H{
+				"filename": file.Filename,
+			})
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"message": "file is not found",
+			})
+		}
+
+	})
 	r.POST("/challenge", func(c *gin.Context) {
 		var tmp biz.ChallengeMessageEvent
 
